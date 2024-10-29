@@ -7,7 +7,7 @@ let walls3 = [];
 // const fov = 45;
 // const sceneW = 400;
 // const sceneH = 400;
-let randomMaps = false;
+let randomMaps = true;
 let population;
 const learningRate = 0.05;
 let doThisIfRandomMapsFalse = walls2;
@@ -33,4 +33,10 @@ function draw() {
   // population.cars[0].show();
   population.update();
   population.show();
+}
+
+function keyPressed() {
+    if (keyCode == ENTER) {
+        population.skip();
+    }
 }

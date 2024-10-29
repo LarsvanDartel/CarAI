@@ -13,7 +13,7 @@ class Population{
         for(let car of this.cars){
             car.update();
         }
-        if(this.allDead() || (frameCount - this.startFrame)%1800 == 0){
+        if(this.allDead() || frameCount - this.startFrame > 100 * this.generation) {
             this.startFrame = frameCount;
             this.generation++;
             this.sortByFitness();
@@ -25,6 +25,11 @@ class Population{
             if(this.generation > 500){
                 randomMaps = true;
             }
+        }
+    }
+    skip() {
+        for (let car of this.cars) {
+            car.dead = true;
         }
     }
 
@@ -66,10 +71,8 @@ class Population{
 
         for(let i = toKeep; i < this.size; i++){
             this.cars[i].brain = this.cars[i%toKeep].brain.copy();
-            this.cars[i].brain.randomizeAgain();
         }
         for(let i = 1; i < this.size; i++){
-            this.cars[i].brain = this.cars[0].brain.copy();
             this.cars[i].brain.randomizeAgain();
         }
     }

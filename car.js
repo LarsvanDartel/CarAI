@@ -96,7 +96,7 @@ class Car {
 
         this.accelerate(throttle);
         this.rotate(steering);
-        if(this.startPos.dist(this.pos) > 50){
+        if(this.startPos.dist(this.pos) > 100){
             this.fitness += this.speed;
         }
         this.pos.add(this.vel);
@@ -149,8 +149,15 @@ class Car {
             if(this.lineThis(wall.a.x, wall.a.y, wall.b.x, wall.b.y)){
                 this.dead = true;
                 this.speed = 0;
+                this.fitness -= this.speed * 500;
                 return;
             }
+        }
+        if (this.lineThis(30, 375, 230, 375) && (this.heading < 0 && this.heading > -180 || this.heading > 180)) {
+            this.dead = true;
+            this.speed = 0;
+            this.fitness -= this.speed * 500;
+            return;
         }
     }
 
